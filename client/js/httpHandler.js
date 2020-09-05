@@ -1,3 +1,6 @@
+// const swimTeam = require('./swimTeam');
+// import SwimTeam from './swimTeam.js';
+
 (function() {
 
   const serverUrl = 'http://127.0.0.1:3000';
@@ -11,13 +14,21 @@
   // Note: remember to fix the URL below.
   /////////////////////////////////////////////////////////////////////
 
+
+  // var arrowPressData = require('./keypressHandler.js');
+  $.get(serverUrl, (data) => {
+      console.log(data)
+      SwimTeam.move(data);
+  })
+
+
   const ajaxFileUplaod = (file) => {
     var formData = new FormData();
     formData.append('file', file);
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
@@ -47,3 +58,4 @@
   });
 
 })();
+
