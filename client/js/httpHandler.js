@@ -18,6 +18,7 @@
   // var arrowPressData = require('./keypressHandler.js');
   $.get(serverUrl, (data) => {
       console.log(data)
+      // check type of data
       SwimTeam.move(data);
   })
 

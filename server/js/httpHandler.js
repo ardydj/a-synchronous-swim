@@ -18,13 +18,27 @@ module.exports.initialize = (queue) => {
 
 module.exports.router = (req, res, next = ()=>{}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
+  if (req.method === 'GET') {
+    if (req.path === '/') {
+      res.writeHead(200, headers);
   // let index = Math.floor(Math.random() * 4);
   // res.end(['left', 'right', 'up', 'down'][index]);
-  var direction = queue.dequeue()
-  console.log(direction)
-  res.end(direction);
-  next(); // invoke next() at the end of a request to help with testing!
+      var direction = queue.dequeue()
+      console.log(direction)
+      res.end(direction);
+    } else if (req.path === '/background.jpeg'){ // invoke next() at the end of a request to help with testing!
+    fs.readFile('./background.jpg', (err, data) => {
+      if (err) {
+        res.writehead(404, headers);
+      } else {
+        res.writehead(200, headers);
+        res.write(data, 'binary');
+      }
+    })
+    res.end();
+    next()
+    }
+  }
 };
 
 
